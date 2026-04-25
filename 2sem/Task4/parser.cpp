@@ -47,9 +47,10 @@ void Parser::SELECT_STMT() {
     if (curr_token.type == LEX_STAR) {
         get_next();
     } else {
-        COLUMN_LIST();
-    }
 
+        COLUMN_LIST();
+	
+    }
     expect(LEX_FROM, "Expected FROM after column list");
     expect(LEX_ID, "Expected table name after FROM");
 
@@ -83,10 +84,21 @@ void Parser::CREATE_STMT() {
 
 void Parser::COLUMN_LIST() {
     expect(LEX_ID, "Expected column name");
+    
+    if (curr_token.type == LEX_AS) {
+	    get_next();
+	    expect(LEX_ID, "Expected alias name after AS");
+    }
+
     while (curr_token.type == LEX_COMMA) {
         get_next();
         expect(LEX_ID, "Expected column name after ','");
+	if (curr_token.type == LEX_AS) {
+		get_next();
+		expect(LEX_ID, "Expected alias name after AS");
+	}
     }
+    
 }
 
 void Parser::WHERE_CLAUSE() {

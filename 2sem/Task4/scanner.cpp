@@ -4,13 +4,13 @@
 const std::string Scanner::keywords[] = {
     "SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "DROP",
     "TABLE", "FROM", "WHERE", "INTO", "VALUES", "SET", "TEXT", "LONG",
-    "AND", "OR", "NOT", "" 
+    "AND", "OR", "NOT", "AS", ""
 };
 
 const TokenType Scanner::key_tokens[] = {
     LEX_SELECT, LEX_INSERT, LEX_UPDATE, LEX_DELETE, LEX_CREATE, LEX_DROP,
     LEX_TABLE, LEX_FROM, LEX_WHERE, LEX_INTO, LEX_VALUES, LEX_SET, LEX_TEXT, LEX_LONG,
-    LEX_AND, LEX_OR, LEX_NOT
+    LEX_AND, LEX_OR, LEX_NOT, LEX_AS
 };
 
 Scanner::Scanner(const std::string& input) : source(input), pos(0) {}
@@ -63,8 +63,11 @@ Token Scanner::get_token() {
 
     pos++;
     switch (c) {
+	case '%': return Token(LEX_FINISH, "EOF");
         case ',': return Token(LEX_COMMA, ",");
         case ';': return Token(LEX_SEMICOLON, ";");
+	case '[': return Token(LEX_LEFT, "[");
+	case ']': return Token(LEX_RIGHT, "]");
         case '*': return Token(LEX_STAR, "*");
         case '(': return Token(LEX_LEFT_PAREN, "(");
         case ')': return Token(LEX_RIGHT_PAREN, ")");
