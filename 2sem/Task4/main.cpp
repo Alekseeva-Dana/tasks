@@ -5,8 +5,9 @@
 
 int main() {
     std::string line;
-    std::cout << "Model SQL Interpreter (Lexical + Syntactic Mode)" << std::endl;
-    std::cout << "Type 'EXIT' to quit." << std::endl;
+    std::cout << "Model SQL Interpreter (Persistent Mode)" << std::endl;
+    
+    Parser parser; //создаем один раз!
 
     while (true) {
         std::cout << "sql> ";
@@ -14,19 +15,13 @@ int main() {
         if (line.empty()) continue;
 
         try {
-         
-            
-            Scanner scanner(line);
-            Parser parser(scanner);
-            
+            Scanner scanner(line); //сканеры
+            parser.set_scanner(scanner); //привязка
             parser.analyze();
-            
-            
-
         } catch (const ScannerException& e) {
             std::cerr << "LEXICAL ERROR: " << e.what() << std::endl;
         } catch (const ParserException& e) {
-            std::cerr << "SYNTAX ERROR: " << e.what() << std::endl;
+            std::cerr << "ERROR: " << e.what() << std::endl;
         }
     }
     return 0;
