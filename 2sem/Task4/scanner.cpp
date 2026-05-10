@@ -3,14 +3,16 @@
 
 const std::string Scanner::keywords[] = {
     "SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "DROP",
-    "TABLE", "FROM", "WHERE", "INTO", "VALUES", "SET", "TEXT", "LONG",
-    "AND", "OR", "NOT", "AS", ""
+    "TABLE", "TABLES", "FROM", "WHERE", "INTO", "VALUES", "SET", "TEXT", "LONG",
+    "AND", "OR", "NOT", "AS",
+    "SHOW", "DESCRIBE", ""
 };
 
 const TokenType Scanner::key_tokens[] = {
     LEX_SELECT, LEX_INSERT, LEX_UPDATE, LEX_DELETE, LEX_CREATE, LEX_DROP,
-    LEX_TABLE, LEX_FROM, LEX_WHERE, LEX_INTO, LEX_VALUES, LEX_SET, LEX_TEXT, LEX_LONG,
-    LEX_AND, LEX_OR, LEX_NOT, LEX_AS
+    LEX_TABLE, LEX_TABLES, LEX_FROM, LEX_WHERE, LEX_INTO, LEX_VALUES, LEX_SET, LEX_TEXT, LEX_LONG,
+    LEX_AND, LEX_OR, LEX_NOT, LEX_AS,
+    LEX_SHOW, LEX_DESCRIBE
 };
 
 Scanner::Scanner(const std::string& input) : source(input), pos(0) {}
